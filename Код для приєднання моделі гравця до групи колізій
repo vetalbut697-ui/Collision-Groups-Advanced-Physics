@@ -1,0 +1,12 @@
+local PhysicsService = game:GetService("PhysicsService")
+
+game.Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		character:WaitForChild("HumanoidRootPart")
+		for _, part in ipairs(character:GetDescendants()) do -- перебирання всіх  частин персонажа та приєднання їх до відповідної групи(Що вже була створена в іншому скрипті)
+			if part:IsA("BasePart") then
+				part.CollisionGroup = "PlayersGroup"
+			end
+		end
+	end)
+end)
