@@ -1,0 +1,13 @@
+local PhysicsService = game:GetService("PhysicsService")-- Сервіс для створення груп колізій
+--Функція для створення груп колізій(Обов'язкова)
+pcall(function()
+	PhysicsService:RegisterCollisionGroup("PlayersGroup")--Група для гравців
+	PhysicsService:RegisterCollisionGroup("GhostWalls")--Група для прозорих об'єктів, в даному вибадку стін
+end)
+
+PhysicsService:CollisionGroupSetCollidable("PlayersGroup", "GhostWalls", false) -- Відношення об'єктів різних груп між собою(в даному випадку об'єкти з двох різних груп не можуть перетнутись між собою)
+PhysicsService:CollisionGroupSetCollidable("PlayersGroup", "PlayersGroup", false)-- Відношення об'єктів однієї групи між собою(в даному випадку об'єкти з однієї групи не можуть перетнутись між собою)
+
+if workspace:FindFirstChild("Wall") then-- чи прогрузилась потрібна деталь
+	workspace.Wall.CollisionGroup = "GhostWalls"-- приєднання її до відповідної групи
+end
